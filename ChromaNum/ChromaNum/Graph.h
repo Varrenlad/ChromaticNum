@@ -2,7 +2,6 @@
 #include "common.h"
 
 class Graph {
-	friend class PQueue;
 	std::vector<size_t> *adj;
 	size_t nodes = 0;
 	size_t edges = 0;
@@ -14,8 +13,6 @@ public:
 	size_t Chroma(Algorithm);
 	size_t Nodes();
 	void Load(std::istream &);
-	size_t Size();
 	Graph();
 	~Graph();
-	
 };

@@ -19,8 +19,7 @@ void Graph::Load(std::istream &st) {
 		}
 	} while (!(nodes || st.eof()));
 	if (!nodes) {
-		std::exception e("Cannot find number of nodes, data might be corrupt");
-		throw e;
+		throw 2;
 	}
 	while (!isdigit(temp = st.peek()))
 		st.get(); //pass remainings of the header
@@ -32,6 +31,8 @@ void Graph::Load(std::istream &st) {
 			hasCycle = true; //a graph with a cycle cannot be coloured
 			return;
 		}
+		if (temp >= nodes || temp2 >= nodes)
+			throw 3;
 		adj[temp].push_back(temp2);
 		adj[temp2].push_back(temp);
 	}
@@ -62,10 +63,6 @@ size_t Graph::Chroma(Algorithm type) {
 	}
 }
 
-size_t Graph::Size() {
-	return nodes;
-}
-
 size_t* Graph::Greedy() {
 	size_t i, u, cr;
 	size_t *result = new size_t[nodes](); //init as zero
@@ -91,7 +88,7 @@ size_t* Graph::Greedy() {
 			if (result)
 				available[result[i]] = false;
 	}
-	for (int u = 0; u < nodes; u++)
+	for (size_t u = 0; u < nodes; u++)
 		std::cout << "Vertex " << u << " --->  Color "
 		<< result[u] << std::endl;
 	return result;
@@ -102,7 +99,6 @@ size_t* Graph::Exact() { //DSATUR
 	size_t *result = new size_t[nodes](); //init as zero
 	std::vector<size_t> satLevel, top;
 	//initialize satLevel as one all
-	//top.resize(nodes, 0);
 	satLevel.resize(nodes, 1);
 	//find max degree
 	size_t colour, i, max = 0;
@@ -158,9 +154,11 @@ size_t* Graph::Exact() { //DSATUR
 }
 
 size_t Graph::CountColours(size_t *arr) {
-	size_t i, max = 1;
-	for (i = 0; i < nodes; ++i)
-		if (arr[i] > max)
-			max = arr[i];
+	size_t u, max = 1;
+	for (u = 0; u < nodes; u++) {
+		std::cout << "Vertex " << u << " --->  Color " << arr[u] << std::endl;
+		if (arr[u] > max)
+			max = arr[u];
+	}
 	return max;
 }

@@ -4,6 +4,5 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
-#include <map>
 
-enum Algorithm{EXACT, FAST};
+enum Algorithm{EXACT = 0, FAST};
