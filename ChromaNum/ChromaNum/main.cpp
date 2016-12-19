@@ -6,7 +6,7 @@ int main() {
 	std::ifstream fs;
 	fs.open("input.txt");
 	g.Load(fs);
-	g.Chroma(FAST);
+	g.Chroma(EXACT);
 	std::cin.get();
 	return 0;
 }
