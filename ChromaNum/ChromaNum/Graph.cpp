@@ -62,6 +62,10 @@ size_t Graph::Chroma(Algorithm type) {
 	}
 }
 
+size_t Graph::Size() {
+	return nodes;
+}
+
 size_t* Graph::Greedy() {
 	size_t i, u, cr;
 	size_t *result = new size_t[nodes](); //init as zero
